@@ -3,7 +3,7 @@
 
 '''Generate random Picoblaze instructions'''
 
-from __future__ import print_function
+
 
 import os,sys,inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -38,7 +38,7 @@ class random_pb3(object):
        'load', 'or', 'output', 'store', 'sub', 'subcy', 'test', 'xor'))
 
     self.storage_io_opcodes = set(('store', 'fetch', 'input', 'output'))
-    self.registers = set(['s{}'.format(n) for n in xrange(10)] + ['sa', 'sb', 'sc', 'sd', 'se', 'sf'])
+    self.registers = set(['s{}'.format(n) for n in range(10)] + ['sa', 'sb', 'sc', 'sd', 'se', 'sf'])
 
   def write_file(self, fname, n):
     asm = [s.format() + '\n' for s in self.statements(n)]
@@ -46,7 +46,7 @@ class random_pb3(object):
       fh.writelines(asm)
 
   def statements(self, n):
-    for _ in xrange(n):
+    for _ in range(n):
       yield(self.gen_statement())
 
   def gen_statement(self):
@@ -59,7 +59,7 @@ class random_pb3(object):
       self.labels.add(ptree['label'][0])
 
     if random_bool():
-      ptree['comment'] = [''.join([random.choice(string.ascii_letters) for _ in xrange(10)])]
+      ptree['comment'] = [''.join([random.choice(string.ascii_letters) for _ in range(10)])]
 
     if random.random() > 0.1:
       # Generate command
@@ -132,7 +132,7 @@ class random_pb3(object):
     const = '{:02X}'.format(random.randint(0, 255))
 
     if len(self.constants) > 0 and random_bool():
-      const = random.sample(self.constants.keys(), 1)[0]
+      const = random.sample(list(self.constants.keys()), 1)[0]
     
     return const
 
@@ -194,10 +194,10 @@ class random_pb6(random_pb3):
       '"{}"'.format(random.choice(string.ascii_letters))]
 
     if len(self.constants) > 0:
-      choices.append(random.sample(self.constants.keys(), 1)[0])
+      choices.append(random.sample(list(self.constants.keys()), 1)[0])
       choices.append('~' + choices[-1])
 
-    return weighted_choice(zip(choices, [1]*len(choices)))
+    return weighted_choice(list(zip(choices, [1]*len(choices))))
 
   def random_regbank(self):
     return ['regbank', '{}'.format(random.choice(('a', 'b')))]
@@ -217,7 +217,7 @@ class random_pb6(random_pb3):
   def random_string(self):
     sn = 'S_{:03}$'.format(self.string_ix)
     self.string_ix += 1
-    sv = ''.join([random.choice(string.ascii_letters) for _ in xrange(random.randint(2, 10))])
+    sv = ''.join([random.choice(string.ascii_letters) for _ in range(random.randint(2, 10))])
     self.strings[sn] = sv
 
     self.prev_string = sn

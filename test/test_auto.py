@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from __future__ import print_function, division
+
 
 import unittest, types
 import os, re, subprocess, json
@@ -21,7 +21,7 @@ class GeneratedTestCase(unittest.TestCase):
       
       unittest.TestCase.__init__(self, methodName=methodName)
 
-      for k, v in kwargs.iteritems():
+      for k, v in kwargs.items():
         assert not hasattr(self, k), 'Attribute "{}" already exists'.format(k)
         setattr(self, k, v)
 

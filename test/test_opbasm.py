@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, division
+
 
 import unittest
 import os
 import random
 import sys
-import psm_gen
+from . import psm_gen
 import subprocess as subp
 import filecmp
 import string
@@ -27,10 +27,10 @@ class RandomSeededTestCase(unittest.TestCase):
         
         # Use seed from enviroment if it is set
         try:
-            seed = long(os.environ[self.seed_var_name])
+            seed = int(os.environ[self.seed_var_name])
         except KeyError:
             random.seed()
-            seed = long(random.random() * 1e9)
+            seed = int(random.random() * 1e9)
 
         print('\n * Random seed: {} *'.format(seed))
         random.seed(seed)
@@ -88,7 +88,7 @@ class TestPicoblaze(RandomSeededTestCase):
 
     os.chdir('test/testo')
 
-    for i in xrange(self.trial_count):
+    for i in range(self.trial_count):
       self.update_progress(i+1)
 
       basename = 'pb3_{:02}'.format(i)
@@ -137,7 +137,7 @@ class TestPicoblaze(RandomSeededTestCase):
 
     os.chdir('test/testo')
 
-    for i in xrange(self.trial_count):
+    for i in range(self.trial_count):
       self.update_progress(i+1)
 
       basename = 'pb6_{:02}'.format(i)
