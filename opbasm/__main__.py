@@ -258,8 +258,7 @@ def main():
 
   def printq(*args, **keys):
     if not config.quiet:
-      utf_args = [a.encode('utf-8') for a in args]
-      print(*utf_args, **keys)
+      print(*args, **keys)
 
   printq(note(_('OPBASM - Open PicoBlaze Assembler {}').format(opbasm.__version__)))
 

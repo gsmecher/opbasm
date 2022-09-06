@@ -40,10 +40,10 @@ import hashlib
 
 import  opbasm.optimize as optimize
 
-from opbasm.common import *
-from opbasm.color import *
-from opbasm.devices import *
-from opbasm.hamming import secded_encode_num
+from .common import *
+from .color import *
+from .devices import *
+from .hamming import secded_encode_num
 
 
 def find_lib_dir():
@@ -1397,8 +1397,7 @@ class Assembler(object):
         flush = keys['flush']
         del keys['flush']
 
-      utf_args = [a.encode('utf-8') for a in args]
-      print(*utf_args, **keys)
+      print(*args, **keys)
       if flush:
         sys.stdout.flush()
 

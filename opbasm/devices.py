@@ -24,7 +24,7 @@
 
 
 
-from opbasm.common import *
+from .common import *
 
 class DeviceArch(object):
   def __init__(self):
